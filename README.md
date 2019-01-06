@@ -25,3 +25,6 @@ The basic process for creating a control renderer is as follows:
 
 ## About Text Measuring
 By far the trickiest issue here is measuring text so that XF can handle layout, rather than the browser. Currently, a very hackish method is being employed: a dummy 1x1 canvas is set on the main page, and we're using JavaScript interop to call `canvas.measureText` to get the text size. Unfortunately this has to be done asynchronously, so the intiial text is rendered at the wrong size and then re-rendered after measurement. One presumes there is a better way to do this. 
+
+## Contributing
+Again, this is a very barebones proof of concept. I encourage anyone with the time and interest to take this project on as an active maintained community effort.
