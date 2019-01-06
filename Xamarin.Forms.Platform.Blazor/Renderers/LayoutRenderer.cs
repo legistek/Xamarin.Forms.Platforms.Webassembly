@@ -14,6 +14,23 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 {
 	public class LayoutRenderer : ViewRenderer<Layout>
 	{
+		static HashSet<string> _renderProperties = new HashSet<string>
+		{
+			nameof(Layout.BackgroundColor),
+		};
+
+		protected override bool AffectsRender(string propertyName)
+		{
+			return base.AffectsRender(propertyName) ||
+				_renderProperties.Contains(propertyName);
+		}
+
+		protected override void SetBasicStyles()
+		{
+			base.SetBasicStyles();
+			this.Styles["background"] = Element.BackgroundColor.ToHTMLColor();
+		}
+
 		protected override void RenderContent(RenderTreeBuilder builder)
 		{
 			base.RenderContent(builder);

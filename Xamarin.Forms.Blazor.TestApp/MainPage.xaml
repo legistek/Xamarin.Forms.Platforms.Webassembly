@@ -8,24 +8,42 @@
         <local:ViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical">
-        <Label Text="{Binding StatusText}"
-               FontFamily="Courier New"
-               FontSize="18"
-               TextColor="Red"
-               HorizontalOptions="CenterAndExpand"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="0">
+            <Label Text="{Binding StatusText}"
+                   FontFamily="Courier New"
+                   FontSize="18"
+                   TextColor="Red"
+                   HorizontalOptions="CenterAndExpand"/>
 
-        <Button Margin="0"
-                BorderColor="Black"
-                BorderWidth="1"
-                FontFamily="Arial"
-                FontSize="14"
-                HorizontalOptions="Center"
-                BackgroundColor="#2040FF"
-                TextColor="White"
-                CornerRadius="3"
-                Padding="10"
-                Text="Click me!"
-                Command="{Binding ClickedCommand}"/>
-    </StackLayout>
+            <Button Margin="0"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    FontFamily="Arial"
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#2040FF"
+                    TextColor="White"
+                    CornerRadius="3"
+                    Padding="10"
+                    Text="Click me!"
+                    Command="{Binding ClickedCommand}"/>
+        </StackLayout>
+
+        <Grid Grid.Column="1"
+              BackgroundColor="Green">
+            <Label Text="Column 2"/>
+        </Grid>
+
+        <Grid Grid.Column="2"
+              BackgroundColor="Orange">
+            <Label Text="Column 3"/>
+        </Grid>
+    </Grid>
 </ContentPage>

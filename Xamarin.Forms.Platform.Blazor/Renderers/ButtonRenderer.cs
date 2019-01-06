@@ -110,13 +110,6 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 				$"position: absolute; " +
 				$"top: {Element.Padding.Top}px; " +
 				$"left: {Element.Padding.Left}px; ");
-			/*
-			 * 
-			this.Styles["padding-left"] = $"{Element.Padding.Left}px";
-			this.Styles["padding-top"] = $"{Element.Padding.Top}px";
-			this.Styles["padding-right"] = $"{Element.Padding.Right}px";
-			this.Styles["padding-bottom"] = $"{Element.Padding.Bottom}px";
-			 * */
 			builder.AddContent(this.RenderCounter++, this.Element.Text);
 			builder.CloseElement();
 		}
