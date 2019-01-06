@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Blazor Test</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body onresize="exampleJsFunctions.resize()"
+      style="overflow: hidden; height: 100%; width: 100%; margin: 0;">
+    <app>Loading...</app>
+
+    <script src="_framework/blazor.server.js"></script>
+    <canvas id="formsCanvas" width="1" height="1" />
+</body>
+</html>
+
+<script>
+    window.exampleJsFunctions = {
+        showPrompt: function (message) {
+            return prompt(message, 'Type anything here');
+        },
+
+        resize: async function () {
+            await DotNet.invokeMethodAsync(
+                "Xamarin.Forms.Platform.Blazor",
+                "ResizeMainWindowAsync",
+                window.innerWidth,
+                window.innerHeight);
+            console.log("resized");
+        },
+
+        measureText: function (text, font) {
+            var c = document.getElementById("formsCanvas");
+            var ctx = c.getContext("2d");
+            ctx.font = font;
+            return ctx.measureText(text).width;
+        },
+
+        getWindowSize: function () {
+            return window.innerWidth + "," + window.innerHeight;
+        }
+    };
+</script>

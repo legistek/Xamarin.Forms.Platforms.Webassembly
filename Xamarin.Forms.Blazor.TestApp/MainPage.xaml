@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin.Forms.Blazor.TestApp"
+             x:Class="Xamarin.Forms.Blazor.TestApp.MainPage">
+   
+    <ContentPage.BindingContext>
+        <local:ViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Vertical">
+        <Label Text="{Binding StatusText}"
+               FontFamily="Courier New"
+               FontSize="18"
+               TextColor="Red"
+               HorizontalOptions="CenterAndExpand"/>
+
+        <Button Margin="0"
+                BorderColor="Black"
+                BorderWidth="1"
+                FontFamily="Arial"
+                FontSize="14"
+                HorizontalOptions="Center"
+                BackgroundColor="#2040FF"
+                TextColor="White"
+                CornerRadius="3"
+                Padding="10"
+                Text="Click me!"
+                Command="{Binding ClickedCommand}"/>
+    </StackLayout>
+</ContentPage>

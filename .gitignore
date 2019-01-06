@@ -3,3 +3,19 @@
 ################################################################################
 
 /Xamarin.Forms.Blazor.TestApp/bin/Debug/netstandard2.0
+/Xamarin.Forms.Blazor.TestApp/obj
+/Xamarin.Forms.Blazor.TestApp.BlazorApp/bin/Debug/netstandard2.0
+/Xamarin.Forms.Blazor.TestApp.BlazorApp/obj
+/Xamarin.Forms.Blazor.TestApp.BlazorServer/bin/Debug/netcoreapp2.1
+/Xamarin.Forms.Blazor.TestApp.BlazorServer/obj
+/Xamarin.Forms.Blazor.TestApp.ReferenceApp/bin/x86/Debug
+/Xamarin.Forms.Blazor.TestApp.ReferenceApp/obj
+/Xamarin.Forms.Platform.Blazor/bin/Debug/netstandard2.0
+/Xamarin.Forms.Platform.Blazor/obj
+/.vs/Xamarin.Forms.Platform.Blazor/v15
+/.vs/config
+/Xamarin.Forms.Blazor.TestApp/bin/Release/netstandard2.0
+/Xamarin.Forms.Blazor.TestApp.BlazorApp/bin/Release/netstandard2.0
+/Xamarin.Forms.Blazor.TestApp.BlazorServer/bin/Release/netcoreapp2.1
+/Xamarin.Forms.Blazor.TestApp.ReferenceApp/bin/x86/Release
+/Xamarin.Forms.Platform.Blazor/bin/Release/netstandard2.0
