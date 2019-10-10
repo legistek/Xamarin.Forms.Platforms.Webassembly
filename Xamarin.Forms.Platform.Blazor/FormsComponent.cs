@@ -4,22 +4,50 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.RenderTree;
+using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Xamarin.Forms.Platform.Blazor.Interop;
+using System.Threading;
 
 namespace Xamarin.Forms.Platform.Blazor
 {
-	public abstract class FormsComponent : BlazorComponent, INotifyPropertyChanged
+	public abstract class FormsComponent : ComponentBase, INotifyPropertyChanged
 	{
 		bool _isRenderInitialized;
 		private Size _DesiredSize;
-		public event PropertyChangedEventHandler PropertyChanged;
+        SynchronizationContext _syncContext;
+
+        public FormsComponent()
+        {
+            _syncContext = SynchronizationContext.Current;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 		protected int RenderCounter { get; set; }
 
+        IJSRuntime _JSRuntime;
+        [Inject]
+        private IJSRuntime JSRuntime
+        {
+            get => _JSRuntime;
+            set
+            {
+                _JSRuntime = value;
+                this.XFUilities = null;
+            }
+        }
+
+        XFUtilities _XFUilities;
+        internal XFUtilities XFUilities
+        {
+            get => _XFUilities ?? (_XFUilities = new XFUtilities(this.JSRuntime));
+            private set => _XFUilities = value;
+        }
+
 		[Parameter]
-		private VisualElement Element
+		public VisualElement Element
 		{
 			get => GetElement();
 			set => SetElement(value);
@@ -68,7 +96,10 @@ namespace Xamarin.Forms.Platform.Blazor
 		{
 			if (!_isRenderInitialized)
 				return;
-			this.StateHasChanged();
+            this.SafeInvoke(() =>
+            {
+                this.StateHasChanged();
+            });			
 		}
 
 		protected void OnPropertyChanged(
@@ -141,5 +172,13 @@ namespace Xamarin.Forms.Platform.Blazor
 			builder.AddAttribute(1, nameof(FormsComponent.Element), child);
 			builder.CloseComponent();
 		}
-	}
+
+        internal void SafeInvoke(Action action)
+        {
+            if (SynchronizationContext.Current != _syncContext)
+                InvokeAsync(() => action());
+            else
+                action();
+        }
+    }
 }

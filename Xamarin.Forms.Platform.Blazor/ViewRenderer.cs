@@ -35,7 +35,6 @@ namespace Xamarin.Forms.Platform.Blazor
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
 		}
 
 		protected virtual bool AffectsRender(string propertyName)

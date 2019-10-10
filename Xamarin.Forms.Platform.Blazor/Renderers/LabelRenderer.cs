@@ -5,8 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Blazor.Interop;
 
-using Microsoft.AspNetCore.Blazor.RenderTree;
+using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 [assembly: Xamarin.Forms.Platform.Blazor.ExportRenderer(
 	typeof(Label),
@@ -57,7 +60,7 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 		{
 			base.SetBasicStyles();
 
-			this.Styles["line-height"] = this.Element.LineHeight.ToString();
+			this.Styles["line-height"] = this.ActualLineHeight.ToString();
 
 			this.Styles["background-color"] = Element.BackgroundColor.ToHTMLColor();
 			this.Styles["color"] = this.Element.TextColor.ToHTMLColor();
@@ -77,17 +80,19 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 			if (_needsTextMeasure)
 			{
 				_needsTextMeasure = false;
-				ExampleJsInterop.MeasureTextAsync(
-					this.Element.Text,
-					this.Element.FontFamily,
-					this.Element.FontSize).ContinueWith(t =>
-					{
-						var width = t.Result;
-						this.DesiredSize = new Size(width, this.Element.FontSize * this.ActualLineHeight);
-						this.Element.NativeSizeChanged();
-						this.StateHasChanged();
-					});
-				return new Size(1, this.Element.FontSize);
+                var t = XFUilities.MeasureText(
+                    this.Element.Text,
+                    this.Element.FontFamily,
+                    this.Element.FontSize);
+                t.ContinueWith(t =>
+				{
+					this.DesiredSize = new Size(t.Result, this.Element.FontSize * this.ActualLineHeight);
+					this.Element.NativeSizeChanged();
+                    this.InvalidateRender();
+				});
+				return new Size(
+                    this.Element.FontSize * 0.75 * this.Element.Text.Length,   // just a guess
+                    this.Element.FontSize);
 			}
 			else
 			{

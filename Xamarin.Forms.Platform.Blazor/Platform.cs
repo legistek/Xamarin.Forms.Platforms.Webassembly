@@ -11,6 +11,11 @@ namespace Xamarin.Forms.Platform.Blazor
 	{
 		readonly FormsApplicationPage _page;
 
+        public static void Init()
+        {
+            Forms.Init();
+        }
+
 		Page Page { get; set; }
 
 		internal static readonly BindableProperty RendererTypeProperty = BindableProperty.CreateAttached(

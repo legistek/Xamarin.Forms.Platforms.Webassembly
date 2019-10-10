@@ -19,8 +19,8 @@ namespace Xamarin.Forms.Platform.Blazor
 		public string RuntimePlatform => "Blazor";
 
 		public void BeginInvokeOnMainThread(Action action)
-		{
-			action?.Invoke();
+		{           
+            action?.Invoke();
 		}
 
 		public Ticker CreateTicker()

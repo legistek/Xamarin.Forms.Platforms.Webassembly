@@ -2,65 +2,54 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.RenderTree;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Xamarin.Forms.Platform.Blazor
 {
 	public class FormsApplicationPage : FormsPage
 	{
 		Application _application;
-		Type _applicationType;
 
 		public FormsApplicationPage()
 		{
 		}
 
-		[Parameter]
-		private Type ApplicationType
-		{
-			get => _applicationType;
-			set
-			{
-				LoadApplication(value);
-			}
-		}
-
+        [Parameter]
 		public Application Application
 		{
 			get
 			{
 				return _application;
 			}
-			private set
+			set
 			{
-				_application = value;
+                if (_application == null)
+                    LoadApplication(value);
 			}
 		}
 
 		protected Platform Platform { get; private set; }
 
-		private async void LoadApplication(Type applicationType)
-		{
-			Forms.Init();
-			_applicationType = applicationType;
-			var application = Activator.CreateInstance(applicationType) as Application;
-
+		private void LoadApplication(Application application)
+		{			
 			Application.Current = application;
 			application.PropertyChanged += ApplicationOnPropertyChanged;
 			this._application = application;
-
-			SetMainPage();
-
-			var sz = await ExampleJsInterop.GetWindowSizeAsync();
-			Application.MainPage.Layout(new Rectangle(0, 0, sz.Width, sz.Height));
+			SetMainPage();            
 		}
 
-		void ApplicationOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        protected override async Task OnInitializedAsync()
+        {
+            OnWindowResize(1920, 1080);  // initial guess
+            var sz = await XFUilities.RegisterApplicationPage(this);
+            OnWindowResize(sz.Width, sz.Height);
+            await base.OnInitializedAsync();           
+        }
+
+        void ApplicationOnPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == "MainPage")
 				SetMainPage();
@@ -74,5 +63,11 @@ namespace Xamarin.Forms.Platform.Blazor
 			Platform.SetPage(Application.MainPage);
 			this.SetElement(Application.MainPage);
 		}
+
+        [JSInvokable]
+        public void OnWindowResize(double width, double height)
+        {
+            Application.MainPage.Layout(new Rectangle(0, 0, width, height));
+        }
 	}
 }

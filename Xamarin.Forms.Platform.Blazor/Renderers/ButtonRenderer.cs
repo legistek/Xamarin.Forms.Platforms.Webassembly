@@ -4,9 +4,9 @@ using System.ComponentModel;
 
 using Xamarin.Forms;
 
-using Microsoft.AspNetCore.Blazor.RenderTree;
-using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 [assembly: Xamarin.Forms.Platform.Blazor.ExportRenderer(
 	typeof(Button),
@@ -80,24 +80,24 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 
 		protected override void AddAdditionalAttributes(RenderTreeBuilder builder)
 		{
-			builder.AddAttribute(
-				this.RenderCounter++,
-				"onmousedown",
-				BindMethods.GetEventHandlerValue<UIMouseEventArgs>((e) =>
-				{
-					this.Element.SendPressed();
-				}));
+            builder.AddAttribute(
+                this.RenderCounter++,
+                "onmousedown",
+                EventCallback.Factory.Create<MouseEventArgs>(this, (e) =>
+                {
+                    this.Element.SendPressed();
+                }));
 			builder.AddAttribute(
 				this.RenderCounter++,
 				"onmouseup",
-				BindMethods.GetEventHandlerValue<UIMouseEventArgs>((e) =>
+				EventCallback.Factory.Create<MouseEventArgs>(this, (e) =>
 				{
 					this.Element.SendReleased();
 				}));
 			builder.AddAttribute(
 				this.RenderCounter++, 
 				"onclick",
-				BindMethods.GetEventHandlerValue<UIMouseEventArgs>((e) =>
+				EventCallback.Factory.Create<MouseEventArgs>(this, (e) =>
 				{
 					this.Element.SendClicked();
 				}));
@@ -125,15 +125,14 @@ namespace Xamarin.Forms.Platform.Blazor.Renderers
 			if (_needsTextMeasure)
 			{
 				_needsTextMeasure = false;
-				ExampleJsInterop.MeasureTextAsync(
+                XFUilities.MeasureText(
 					this.Element.Text,
 					this.ActualFontFamily,
 					this.Element.FontSize).ContinueWith(t =>
 					{
-						var width = t.Result;
-						_textSize = new Size(width, this.Element.FontSize);
+						_textSize = new Size(t.Result, this.Element.FontSize);
 						this.Element.NativeSizeChanged();
-						this.StateHasChanged();
+                        this.InvalidateRender();
 					});
 				return new Size(
 					this.Element.Padding.HorizontalThickness 

@@ -19,3 +19,13 @@
 /Xamarin.Forms.Blazor.TestApp.BlazorServer/bin/Release/netcoreapp2.1
 /Xamarin.Forms.Blazor.TestApp.ReferenceApp/bin/x86/Release
 /Xamarin.Forms.Platform.Blazor/bin/Release/netstandard2.0
+/Testing/Xamarin.Forms.Blazor.TestApp.ReferenceApp/obj
+/Testing/Xamarin.Forms.Blazor.TestApp.ReferenceApp/bin/x86/Debug
+/Testing/Xamarin.Forms.Blazor.TestApp/obj
+/Testing/Xamarin.Forms.Blazor.TestApp/bin/Debug/netstandard2.0
+/.vs/Xamarin.Forms.Platform.Blazor/v16
+/.vs/Xamarin.Forms.Platforms.Blazor/v16
+/.vs/Xamarin.Forms.Platform.Blazor/DesignTimeBuild
+/.vs
+/Testing/Xamarin.Forms.Blazor.TestApp.ServerSideBlazor/bin/Debug/netcoreapp3.0
+/Testing/Xamarin.Forms.Blazor.TestApp.ServerSideBlazor/obj
