@@ -29,3 +29,11 @@
 /.vs
 /Testing/Xamarin.Forms.Blazor.TestApp.ServerSideBlazor/bin/Debug/netcoreapp3.0
 /Testing/Xamarin.Forms.Blazor.TestApp.ServerSideBlazor/obj
+/Testing/Xamarin.Forms.Webassembly.TestApp/bin/Debug/netstandard2.0
+/Testing/Xamarin.Forms.Webassembly.TestApp/obj
+/Testing/Xamarin.Forms.Webassembly.TestApp.ReferenceApp/bin/x86/Debug
+/Testing/Xamarin.Forms.Webassembly.TestApp.ReferenceApp/obj
+/Xamarin.Forms.Platform.Webassembly/bin/Debug/netstandard2.1
+/Xamarin.Forms.Platform.Webassembly/obj
+/Xamarin.Forms.Platform.Webassembly.TestApp/bin/Debug/netstandard2.1
+/Xamarin.Forms.Platform.Webassembly.TestApp/obj

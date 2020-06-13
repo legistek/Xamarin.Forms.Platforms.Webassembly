@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <OutputType>Library</OutputType>
+    <IsPackable>true</IsPackable>    
+    <LangVersion>8.0</LangVersion>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <RootNamespace>Xamarin.Forms.Platform.Webassembly</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.5" />
+    <PackageReference Include="Mono.WebAssembly.Interop" Version="5.0.0-preview.4.20257.10" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="content\" />
+  </ItemGroup>
+
+</Project>

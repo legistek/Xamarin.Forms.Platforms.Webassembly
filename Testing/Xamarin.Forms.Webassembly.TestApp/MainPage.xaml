@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin.Forms.Webassembly.TestApp"
+             x:Class="Xamarin.Forms.Webassembly.TestApp.MainPage">
+   
+    <ContentPage.BindingContext>
+        <local:ViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="0">
+            <Label Text="{Binding StatusText}"
+                   FontFamily="Courier New"
+                   FontSize="18"
+                   TextColor="Red"
+                   HorizontalOptions="CenterAndExpand"/>
+
+            <Button Margin="0"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    FontFamily="Arial"
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#2040FF"
+                    TextColor="White"
+                    CornerRadius="3"
+                    Padding="10"
+                    Text="Click me!"
+                    Command="{Binding ClickedCommand}"/>
+        </StackLayout>
+
+        <Grid Grid.Column="1"
+              BackgroundColor="Green">
+            <Label Text="Column 2"
+                   FontFamily="Times New Roman"
+                   FontSize="14"/>
+        </Grid>
+
+        <Grid Grid.Column="2"
+              BackgroundColor="Orange">
+            <Label Text="Column 3"
+                   FontFamily="Times New Roman"
+                   FontSize="14"/>
+        </Grid>
+    </Grid>
+</ContentPage>
